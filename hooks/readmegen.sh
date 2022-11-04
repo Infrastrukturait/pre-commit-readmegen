@@ -5,8 +5,6 @@ set -eo pipefail
 GIT_BIN=$(which git)
 SPATH=$($GIT_BIN rev-parse --show-toplevel)
 
-echo $SPATH
-
 if [ ! -f "${SPATH}/README.json" ]; then
     echo "README.json with variables does not exist."
     exit 6
