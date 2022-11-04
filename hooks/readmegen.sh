@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
 
 set -eo pipefail
 
-if [ ! -f "${GIT_DIR}/README.json" ]; then 
+GIT_BIN=$(which git)
+SPATH=$($GIT_BIN rev-parse --show-toplevel)
+
+echo $SPATH
+
+if [ ! -f "${SPATH}/README.json" ]; then
     echo "README.json with variables does not exist."
     exit 6
 fi
@@ -22,6 +26,7 @@ if [ -z $CURL_BIN ]; then
     exit 2
 fi
 
-$CURL_BIN -Ls https://raw.githubusercontent.com/Infrastrukturait/READMEgen/main/README.md.template | $GOMPLATE_BIN -d config="${GIT_DIR}/README.json" > 
-"${GIT_DIR}/README.md"
+$CURL_BIN -Ls https://raw.githubusercontent.com/Infrastrukturait/READMEgen/main/README.md.template |\
+$GOMPLATE_BIN -d config="${SPATH}/README.json" >\
+ "${SPATH}/README.md"
 
