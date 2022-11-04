@@ -1,0 +1,6 @@
+- id: readmegen
+  name: READMEgen
+  description: generating a standardized README.md
+  entry: hooks/readmegen.sh
+  language: script
+  require_serial: true
